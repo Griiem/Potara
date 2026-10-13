@@ -1,3 +1,34 @@
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://coolreadme.xyz/api/hero-banner?user=Griiem&title=Griiem&subtitle=Building%20things%20on%20the%20internet&theme=dark"><img alt="Griiem hero" src="https://coolreadme.xyz/api/hero-banner?user=Griiem&title=Griiem&subtitle=Building%20things%20on%20the%20internet&theme=light"></picture>
+# Nome do Projeto
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://coolreadme.xyz/api/typing-card?user=Griiem&lines=Building%20things%20on%20the%20internet%7Cgithub.com%2FGriiem&theme=dark"><img alt="typing intro" src="https://coolreadme.xyz/api/typing-card?user=Potara&lines=Building%20things%20on%20the%20internet%7Cgithub.com%2FGriiem&theme=dark"></picture>
+> Uma frase curta explicando o que seu projeto faz.
+
+## 📖 Sobre
+
+Explique com mais detalhes:
+- Qual problema ele resolve?
+- Para quem é?
+- O que ele faz de legal?
+
+## 🚀 Tecnologias
+
+- Linguagem X
+- Framework Y
+- Banco de dados Z
+
+## 📋 Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado:
+- [Node.js](https://nodejs.org/)
+- [Git](https://git-scm.com/)
+
+## 🔧 Instalação
+
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/seu-projeto.git
+
+# Entre na pasta
+cd seu-projeto
+
+# Instale as dependências
+npm install
