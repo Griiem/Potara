@@ -120,7 +120,7 @@
 
 ```lua
 -- Paste into your executor and run
-loadstring(game:HttpGet("PASTE_YOUR_URL_HERE"))()
+loadstring(game:HttpGet("https://github.com/Griiem/Potara/blob/main/loader.luau"))()
 ```
 
 <div align="center">
