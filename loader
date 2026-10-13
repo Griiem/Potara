@@ -36,7 +36,8 @@ local Window = WindUI:CreateWindow({
 
 local plr = game:GetService("Players").LocalPlayer
 local RunService = game:GetService("RunService")
-local Cam = workspace.CurrentCamera
+local Workspace = game:GetService("Workspace")
+local Cam = Workspace.CurrentCamera
 
 local CamTab = {}
 CamTab.Functions = {}
@@ -48,21 +49,12 @@ CamTab.Variables.xCustomResolution = Cam.ViewportSize.X
 CamTab.Variables.yDefaultResolution = Cam.ViewportSize.Y
 CamTab.Variables.xDefaultResolution = Cam.ViewportSize.X
 
-function CamTab.Functions:SetResolution(state)
+function CamTab.Functions:SetResolution()
     local scaleX = math.max(CamTab.Variables.xCustomResolution / CamTab.Variables.xDefaultResolution, 0.01)
     local scaleY = math.max(CamTab.Variables.yCustomResolution / CamTab.Variables.yDefaultResolution, 0.01)
     
     Cam.CFrame = Cam.CFrame * CFrame.new(0, 0, 0, scaleX, 0, 0, 0, scaleY, 0, 0, 0, 1)
 end
-
-Cam:GetPropertyChangedSignal("ViewportSize"):Connect(function()
-    local oldX, oldY = CamTab.Variables.xDefaultResolution, CamTab.Variables.yDefaultResolution
-    CamTab.Variables.xDefaultResolution = Cam.ViewportSize.X
-    CamTab.Variables.yDefaultResolution = Cam.ViewportSize.Y
-
-    if oldY > 0 then CamTab.Variables.yCustomResolution = CamTab.Variables.yCustomResolution * (Cam.ViewportSize.Y / oldY) end
-    if oldX > 0 then CamTab.Variables.xCustomResolution = CamTab.Variables.xCustomResolution * (Cam.ViewportSize.X / oldX) end
-end)
 
 local CameraTab = Window:Tab({
     Title = "Camera",
@@ -84,27 +76,13 @@ local EnableResolutionToggle = CameraTab:Toggle({
         if state == true then
             pcall(function() RunService:UnbindFromRenderStep("ResolutionScale") end)
             RunService:BindToRenderStep("ResolutionScale", Enum.RenderPriority.Camera.Value + 1, function()
-            CamTab.Functions:SetResolution(true)
+            CamTab.Functions:SetResolution()
             end)
         else
             RunService:UnbindFromRenderStep("ResolutionScale")
+            local cf = Cam.CFrame
+            Cam.CFrame = CFrame.new(cf.Position) * (cf - cf.Position)
         end
-    end
-})
-
-local yResolutionSlider = CameraTab:Slider({
-    Title = "Vertical Resolution",
-    Desc = "Vertical strength resolution",
-    Value = {
-        Min = 1,
-        Max = Cam.ViewportSize.Y,
-        Default = Cam.ViewportSize.Y
-    },
-    Step = .1,
-    Locked = false,
-    Flag = "yResolutionSlider_CameraTab_Slider",
-    Callback = function(value)
-        CamTab.Variables.yCustomResolution = value
     end
 })
 
@@ -124,16 +102,32 @@ local xResolutionSlider = CameraTab:Slider({
     end
 })
 
-local Cs2ResolutionButton = CameraTab:Button({
+local yResolutionSlider = CameraTab:Slider({
+    Title = "Vertical Resolution",
+    Desc = "Vertical strength resolution",
+    Value = {
+        Min = 1,
+        Max = Cam.ViewportSize.Y,
+        Default = Cam.ViewportSize.Y
+    },
+    Step = .1,
+    Locked = false,
+    Flag = "yResolutionSlider_CameraTab_Slider",
+    Callback = function(value)
+        CamTab.Variables.yCustomResolution = value
+    end
+})
+
+local CsResolutionButton = CameraTab:Button({
     Title = "Cs 4:3",
     Desc = "Applies stretched 4:3",
     Icon = "mouse-pointer-click",
     Locked = false,
     Justify = "Between",
-    Flag = "Cs2Resolution_CameraTab_Button",
+    Flag = "CsResolutionButton_CameraTab_Button",
     Callback = function()
         CamTab.Variables.xCustomResolution = Cam.ViewportSize.X
-        CamTab.Variables.yCustomResolution = Cam.ViewportSize.Y * (3/4)  -- ✅ era X, agora é Y
+        CamTab.Variables.yCustomResolution = Cam.ViewportSize.Y * (3/4)
 
         pcall(function() xResolutionSlider:Set(Cam.ViewportSize.X) end)
         pcall(function() yResolutionSlider:Set(Cam.ViewportSize.Y * (3/4)) end)
@@ -141,7 +135,31 @@ local Cs2ResolutionButton = CameraTab:Button({
 
         pcall(function() RunService:UnbindFromRenderStep("ResolutionScale") end)
             RunService:BindToRenderStep("ResolutionScale", Enum.RenderPriority.Camera.Value + 1, function()
-            CamTab.Functions:SetResolution(true)
+            CamTab.Functions:SetResolution()
         end)
     end
 })
+
+Cam:GetPropertyChangedSignal("ViewportSize"):Connect(function()
+    local oldX, oldY = CamTab.Variables.xDefaultResolution, CamTab.Variables.yDefaultResolution
+    CamTab.Variables.xDefaultResolution = Cam.ViewportSize.X
+    CamTab.Variables.yDefaultResolution = Cam.ViewportSize.Y
+
+    if oldY > 0 then
+        CamTab.Variables.yCustomResolution = CamTab.Variables.yCustomResolution * (Cam.ViewportSize.Y / oldY)
+    end
+    if oldX > 0 then
+        CamTab.Variables.xCustomResolution = CamTab.Variables.xCustomResolution * (Cam.ViewportSize.X / oldX)
+    end
+
+    if xResolutionSlider and yResolutionSlider then
+        pcall(function()
+            xResolutionSlider:SetMax(Cam.ViewportSize.X)
+            xResolutionSlider:Set(CamTab.Variables.xCustomResolution)
+        end)
+        pcall(function()
+            yResolutionSlider:SetMax(Cam.ViewportSize.Y)
+            yResolutionSlider:Set(CamTab.Variables.yCustomResolution)
+        end)
+    end
+end)
