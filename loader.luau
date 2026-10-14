@@ -18,7 +18,7 @@ local Window = WindUI:CreateWindow({
     ScrollBarEnabled = false,
  
     BackgroundImageTransparency = 1,
-    Background = "",
+    Background = "8508980536",
     
     User = {
         Enabled = true,
@@ -27,14 +27,12 @@ local Window = WindUI:CreateWindow({
             WindUI:Notify({
                 Title = "User Button",
                 Content = "No function yet",
-                Icon = "check-circle",
+                Icon = "user",
                 Duration = 3,
             })
         end,
     },
 })
-
-pcall(function() WindUI:SetSaveEnabled(true) end)
 
 local plr = game:GetService("Players").LocalPlayer
 local RunService = game:GetService("RunService")
@@ -96,9 +94,7 @@ local EnableResolutionToggle = CameraTab:Toggle({
             RunService:BindToRenderStep("ResolutionScale", Enum.RenderPriority.Camera.Value + 1, function()
             CamTab.Functions:SetResolution()
             end)
-        else 
-            RunService:UnbindFromRenderStep("ResolutionScale") 
-        end
+        else RunService:UnbindFromRenderStep("ResolutionScale") end
     end
 })
 
@@ -188,37 +184,12 @@ local FovSlider = CameraTab:Slider({
     end
 })
 
-Cam:GetPropertyChangedSignal("ViewportSize"):Connect(function ()
-    CamTab.Variables.xDefaultResolution = Cam.ViewportSize.X
-    CamTab.Variables.yDefaultResolution = Cam.ViewportSize.Y
-    if CamTab.Variables.CustomResolution then CamTab.Functions:SetResolution() end
-end)
-
-Cam:GetPropertyChangedSignal("FieldOfView"):Connect(function()
-    if not CamTab.Variables.customFov then return end
-    task.defer(function()
-        if not CamTab.Variables.customFov then return end
-        local ratio = CamTab.Variables.fovAmount / CamTab.Variables.fovDefault
-        local targetFov = math.clamp(CamTab.Variables.fovBase * ratio, 1, 120)
-        if Cam.FieldOfView ~= targetFov then
-            Cam.FieldOfView = targetFov
-        end
-    end)
-end)
-
-RunService:BindToRenderStep("FovOverride", Enum.RenderPriority.Last.Value, function()
-    if not CamTab.Variables.customFov then return end
-    local ratio = CamTab.Variables.fovAmount / CamTab.Variables.fovDefault
-    local targetFov = math.clamp(CamTab.Variables.fovBase * ratio, 1, 120)
-    Cam.FieldOfView = targetFov
-end)
-
 CameraTab:Divider()
 
 local ResetCameraButton = CameraTab:Button({
     Title = "Reset Camera",
     Desc = "Reset all camera config",
-    Icon = "mop",
+    Icon = "brush-cleaning",
     Locked = false,
     Justify = "Between",
     Flag = "ResetCameraButton_CameraTab_Button",
@@ -244,3 +215,27 @@ local ResetCameraButton = CameraTab:Button({
     end
 })
 
+Cam:GetPropertyChangedSignal("ViewportSize"):Connect(function ()
+    CamTab.Variables.xDefaultResolution = Cam.ViewportSize.X
+    CamTab.Variables.yDefaultResolution = Cam.ViewportSize.Y
+    if CamTab.Variables.CustomResolution then CamTab.Functions:SetResolution() end
+end)
+
+Cam:GetPropertyChangedSignal("FieldOfView"):Connect(function()
+    if not CamTab.Variables.customFov then return end
+    task.defer(function()
+        if not CamTab.Variables.customFov then return end
+        local ratio = CamTab.Variables.fovAmount / CamTab.Variables.fovDefault
+        local targetFov = math.clamp(CamTab.Variables.fovBase * ratio, 1, 120)
+        if Cam.FieldOfView ~= targetFov then
+            Cam.FieldOfView = targetFov
+        end
+    end)
+end)
+
+RunService:BindToRenderStep("FovOverride", Enum.RenderPriority.Last.Value, function()
+    if not CamTab.Variables.customFov then return end
+    local ratio = CamTab.Variables.fovAmount / CamTab.Variables.fovDefault
+    local targetFov = math.clamp(CamTab.Variables.fovBase * ratio, 1, 120)
+    Cam.FieldOfView = targetFov
+end)
