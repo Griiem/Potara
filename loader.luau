@@ -31,7 +31,7 @@ local Window = WindUI:CreateWindow({
     },
 })
 
-local BASE_URL = "https://github.com/Griiem/Potara/tree/main/tabs"
+local BASE_URL = "https://raw.githubusercontent.com/Griiem/Potara/refs/heads/main/tabs/"
 
 local function loadTab(name)
     local url = BASE_URL .. name .. ".luau" .. "?t=" .. tostring(os.time())
