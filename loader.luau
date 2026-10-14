@@ -31,6 +31,19 @@ local Window = WindUI:CreateWindow({
     },
 })
 
+Window:Tag({
+    Title = "v0.0.1",
+    Icon = "rocket",
+    Color = Color3.fromHex("#89fa98"),
+    Radius = 6.333,
+})
+
+Window:Tag({
+    Title = "夢",
+    Color = Color3.fromHex("#b5c242"),
+    Radius = 13,
+})
+
 local BASE_URL = "https://raw.githubusercontent.com/Griiem/Potara/refs/heads/main/tabs/"
 
 local function loadTab(name)
