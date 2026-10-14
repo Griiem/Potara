@@ -1,14 +1,7 @@
 return function (Window, WindUI)
-    local MiscSection = Window:Section({
-        Title = "Misc Section",
-        Icon = "dot",
-        IconThemed = true,
-        Opened = false,
-    })
-
-    local ThemesTab = MiscSection:Tab({
-        Title = "Themes",
-        Icon = "palette",
+    local SettingsTab = Window:Tab({
+        Title = "Settings",
+        Icon = "settings",
         Locked = false,
     })
 
@@ -31,7 +24,7 @@ return function (Window, WindUI)
         "Rainbow",
     }
 
-    local ThemesDropdown = ThemesTab:Dropdown({
+    local ThemesDropdown = SettingsTab:Dropdown({
         Title = "Themes",
         Desc = "Select a theme for the UI.",
         Values = Themes,
@@ -41,5 +34,5 @@ return function (Window, WindUI)
         end
     })
 
-    return MiscSection, Themes
+    return SettingsTab, Themes
 end
