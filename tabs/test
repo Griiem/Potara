@@ -1,0 +1,45 @@
+return function (Window, WindUI)
+    local MiscSection = Window:Section({
+        Title = "Misc Section",
+        Icon = "dot",
+        IconThemed = true,
+        Opened = false,
+    })
+
+    local ThemesTab = MiscSection:Tab({
+        Title = "Themes",
+        Icon = "palette",
+        Locked = false,
+    })
+
+    local Themes = {
+        "Dark",
+        "Light",
+        "Rose",
+        "Plant",
+        "Red",
+        "Indigo",
+        "Sky",
+        "Violet",
+        "Amber",
+        "Emerald",
+        "Midnight",
+        "Crimson",
+        "MonokaiPro",
+        "CottonCandy",
+        "Mellowsi",
+        "Rainbow",
+    }
+
+    local ThemesDropdown = ThemesTab:Dropdown({
+        Title = "Themes",
+        Desc = "Select a theme for the UI.",
+        Values = Themes,
+        Value = "Dark",
+        Callback = function(option)
+            WindUI:SetTheme(option)
+        end
+    })
+
+    return MiscSection, Themes
+end
