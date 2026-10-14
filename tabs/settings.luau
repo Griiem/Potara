@@ -26,9 +26,9 @@ return function (Window, WindUI)
 
     local ThemesDropdown = SettingsTab:Dropdown({
         Title = "Themes",
-        Desc = "Select a theme for the UI.",
+        Desc = "Select a theme for the UI",
         Values = Themes,
-        Value = "Dark",
+        Value = "Amber",
         Callback = function(option)
             WindUI:SetTheme(option)
         end
