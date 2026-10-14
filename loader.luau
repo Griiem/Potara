@@ -63,4 +63,4 @@ local function loadTab(name)
 end
 
 loadTab("camera")
-loadTab("test")
+loadTab("settings")
