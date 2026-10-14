@@ -82,7 +82,7 @@
 
 <br>
 
-`🎥 Custom Resolution` &nbsp; `🎚️ Adjustable Sliders` &nbsp; `⚡ Quick Preset`
+`🎥 Custom Resolution` &nbsp; `🎚️ Adjustable Sliders` &nbsp; `⚡ Quick Preset` &nbsp; `🔭 FOV Changer`
 
 </div>
 
@@ -100,7 +100,7 @@
 
 <br>
 
-`🌫️ Motion Blur` &nbsp; `🔭 FOV Changer` &nbsp; `👕 Skin Changer` &nbsp; `🌅 Ambient Changer`
+`🌫️ Motion Blur` &nbsp; `👕 Skin Changer` &nbsp; `🌅 Ambient Changer`
 
 </div>
 
@@ -159,7 +159,7 @@ loadstring(game:HttpGet("https://github.com/Griiem/Potara/blob/main/loader.luau"
 
 <br>
 
-`🎮 Griim` &nbsp; • &nbsp; `💻 Lua & Luau` &nbsp; • &nbsp; `🚀 Creator of Potara`
+`🎮 Griim` &nbsp; • &nbsp; `💻 Luau` &nbsp; • &nbsp; `🚀 Creator of Potara`
 
 <br><br>
 
